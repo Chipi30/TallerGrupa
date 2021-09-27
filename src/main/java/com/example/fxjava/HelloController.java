@@ -66,9 +66,13 @@ public class HelloController implements Initializable {
         lanzarJugador.setText("Lanza Jugador # " + play);
         int level = 0;
 
-        if (nivelJuego.getValue().equalsIgnoreCase("Basico")) level = 20;
-        else if (nivelJuego.getValue().equalsIgnoreCase("Medio"))level = 30;
-        else level = 50;
+        if (nivelJuego.getValue().equalsIgnoreCase("Basico")) {
+            level = 20;
+        } else if (nivelJuego.getValue().equalsIgnoreCase("Medio")){
+            level = 30;
+        } else {
+            level = 50;
+        }
 
         juego = new Juego(Integer.parseInt(numeroDeJugadores.getValue()), level, play - 1);
 
@@ -79,14 +83,14 @@ public class HelloController implements Initializable {
     }
 
     void comoboBoxs (){
-        ArrayList<String> lista = new ArrayList<>();
-        Collections.addAll(lista, "Basico", "Medio", "Alto");
-        nivelJuego.getItems().addAll(lista);
+        ArrayList<String> listaNiveles = new ArrayList();
+        Collections.addAll(listaNiveles,new String[]{"Basico", "Medio", "Alto"});
+        nivelJuego.getItems().addAll(listaNiveles);
         nivelJuego.getSelectionModel().select(0);
 
-        ArrayList<String> listaUno = new ArrayList<>();
-        Collections.addAll(listaUno, "1", "2", "3", "4", "5");
-        numeroDeJugadores.getItems().addAll(listaUno);
+        ArrayList<String> listaNumero = new ArrayList();
+        Collections.addAll(listaNumero, new String[]{"1", "2", "3", "4", "5"});
+        numeroDeJugadores.getItems().addAll(listaNumero);
         numeroDeJugadores.getSelectionModel().select(1);
     }
 
@@ -226,10 +230,10 @@ public class HelloController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
-    void siguiente(ActionEvent event) {
-        parametros.setVisible(true);
-    }
+  //  @FXML
+   // void siguiente(ActionEvent event) {
+ //       parametros.setVisible(true);
+ //   }
     @FXML
     void recibirDatosParametros(ActionEvent event) {
        // int num=5;

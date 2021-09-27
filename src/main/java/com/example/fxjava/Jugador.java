@@ -13,9 +13,9 @@ public class Jugador {
         this.nivel = nivel;
     }
 /**posiciones que avanza un jugador*/
-    public void avanzar(int posAvanzadas) {
-        this.posAvanzadas += posAvanzadas;
-        posRestantes -= posAvanzadas;
+    public void avanzar(int avanzadas) {
+        this.posAvanzadas += avanzadas;
+        posRestantes -= avanzadas;
     }
 /** metodo que realiza los retornos del jugador X cada vez q es alcanzado por otro jugador*/
     public void retornos() {
