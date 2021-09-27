@@ -23,7 +23,7 @@ public class Juego {
         return play;
     }
 
-    public void ronda(int avanzo1,int avanzo2){
+    public void ronda(int avanzo1, int avanzo2){
         devolver(jugador.get(this.posicion).getPosAvanzadas()+(avanzo1+avanzo2));
         jugador.get(posicion).avanzar(avanzo1 + avanzo2);
         if(avanzo1 != avanzo2){
@@ -40,11 +40,11 @@ public class Juego {
             }
         }
     }
-    public void prueba(){
-        System.out.println("****PRUEBA****");
-        System.out.println("id = "+jugador.get(posicion).getId());
-        System.out.println("avanzadas = "+jugador.get(posicion).getPosAvanzadas());
-    }
+    //public void prueba(){
+      //  System.out.println("****PRUEBA****");
+      //  System.out.println("id = "+jugador.get(posicion).getId());
+       // System.out.println("avanzadas = "+jugador.get(posicion).getPosAvanzadas());
+  //  }
 
     public boolean hayGanador(){
         boolean ganador = false;
