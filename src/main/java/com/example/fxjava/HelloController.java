@@ -116,7 +116,7 @@ public class HelloController implements Initializable {
         }
         lanzarJugador.setText("Lanza jugador # " + turnoJugador.getText() + " ");
     }
-
+//hola
 
     @FXML
     private Button acercaDe;
