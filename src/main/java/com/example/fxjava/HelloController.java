@@ -22,12 +22,11 @@ import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
 
-   // ArrayList<Integer> numJugadores = new ArrayList<Integer>();
-   // ArrayList<String> nivel = new ArrayList<String>();
+
     private int play;
     private Juego juego;
 
-    public HelloController(){
+    public HelloController() {
 
     }
 
@@ -67,7 +66,7 @@ public class HelloController implements Initializable {
         int level = 0;
 
         if (nivelJuego.getValue().equalsIgnoreCase("Basico")) level = 20;
-        else if (nivelJuego.getValue().equalsIgnoreCase("Medio"))level = 30;
+        else if (nivelJuego.getValue().equalsIgnoreCase("Medio")) level = 30;
         else level = 50;
 
         juego = new Juego(Integer.parseInt(numeroDeJugadores.getValue()), level, play - 1);
@@ -78,7 +77,7 @@ public class HelloController implements Initializable {
         retornos.setText(juego.getJugador().get(juego.getPosicion()).getRetornos() + "");
     }
 
-    void comoboBoxs (){
+    void comoboBoxs() {
         ArrayList<String> lista = new ArrayList<>();
         Collections.addAll(lista, "Basico", "Medio", "Alto");
         nivelJuego.getItems().addAll(lista);
@@ -101,11 +100,11 @@ public class HelloController implements Initializable {
 
     @FXML
     void jugar(ActionEvent event) {
-       // numeroDeJugadores.getValue();
-      //  nivelJuego.getValue();
+        numeroDeJugadores.getValue();
+        nivelJuego.getValue();
 
-        int dadoNum1 = (int)(Math.random()* 6+1);
-        int dadoNum2 = (int)(Math.random()* 6+1);
+        int dadoNum1 = (int) (Math.random() * 6 + 1);
+        int dadoNum2 = (int) (Math.random() * 6 + 1);
 
         dadoNumUno.setText(dadoNum1 + " ");
         dadoNumDos.setText(dadoNum2 + " ");
@@ -117,7 +116,7 @@ public class HelloController implements Initializable {
         retornos.setText(juego.getJugador().get(juego.getPosicion()).getRetornos() + " ");
 
         juego.prueba();
-        juego.ronda(dadoNum1,dadoNum2);
+        juego.ronda(dadoNum1, dadoNum2);
         if (juego.hayGanador()) {
             hayGanador();
         }
@@ -134,14 +133,6 @@ public class HelloController implements Initializable {
     @FXML
     private Label nuevoGanador;
 
-    void hayGanador(){
-
-        nuevoGanador.setText("GANADOR: " + juego.nombreGanador());
-        posicionesAvanzadas.setText("**");
-        posicionesRestantes.setText("**");
-        retornos.setText("**");
-        lanzarJugador.setDisable(true);
-    }
 
     @FXML
     private AnchorPane parametros;
@@ -168,18 +159,29 @@ public class HelloController implements Initializable {
     private Label parUno, parDos;
 
     @FXML
-    void   dadosIguales(){
+    void hayGanador() {
+
+        nuevoGanador.setText("GANADOR: " + juego.nombreGanador());
+        posicionesAvanzadas.setText("**");
+        posicionesRestantes.setText("**");
+        retornos.setText("**");
+        lanzarJugador.setDisable(true);
+    }
+
+    @FXML
+    void dadosIguales() {
         if (dadoNumUno.getText().equalsIgnoreCase(dadoNumDos.getText())) {
             parUno.setText(dadoNumUno.getText());
             parDos.setText(dadoNumUno.getText());
-        }else{
+        } else {
             parUno.setText("*");
             parDos.setText("*");
         }
+
     }
 
-   Configuracion control;
 
+    Configuracion control;
     @FXML
     private Button parametrosConfiguracion;
 
@@ -191,31 +193,35 @@ public class HelloController implements Initializable {
 
         Stage stage2 = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        AnchorPane root = (AnchorPane)loader.load(getClass().getResource("configuracion.fxml").openStream());
-        control =(Configuracion) loader.getController();
+        AnchorPane root = (AnchorPane) loader.load(getClass().getResource("configuracion.fxml").openStream());
+        control = (Configuracion) loader.getController();
 
         Scene scene = new Scene(root);
         stage2.setScene(scene);
         stage2.alwaysOnTopProperty();
         stage2.initModality(Modality.APPLICATION_MODAL);
         stage2.showAndWait();
-        if(!control.numero.getText().equalsIgnoreCase(""))jugadores();
+        if (!control.numero.getText().equalsIgnoreCase("")) jugadores();
     }
 
-    public ArrayList<String> numero(){
-        ArrayList<String> numeroJugadores = new ArrayList<>();
-        int num = Integer.parseInt(control.numero.getText());
-        for(int i = 1; i <= num; i++){
-            numeroJugadores.add(i + " ");
-        }
-        return numeroJugadores;
-    }
-
-    public void jugadores(){
-        ArrayList<String> listaUno = numero();
-        numeroDeJugadores.getItems().setAll(listaUno);
+    /**
+     * public ArrayList<String> numero(){
+     * ArrayList<String> numeroJugadores = new ArrayList<>();
+     * int num = Integer.parseInt(control.numero.getText());
+     * for(int i = 1; i <= num; i++){
+     * numeroJugadores.add(i + " ");
+     * }
+     * return numeroJugadores;
+     * }
+     */
+    public void jugadores() {
+        ArrayList<Integer> numJugadores = new ArrayList<Integer>();
+       // ArrayList<String> nivel = new ArrayList<String>();
+        //ArrayList<String> listaUno = numero();
+        numeroDeJugadores.getItems().setAll(String.valueOf(numJugadores));
         numeroDeJugadores.getSelectionModel().select(0);
     }
+
 
     @FXML
     void informacion(ActionEvent event) throws IOException {
@@ -226,21 +232,30 @@ public class HelloController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     void siguiente(ActionEvent event) {
         parametros.setVisible(true);
     }
+
     @FXML
     void recibirDatosParametros(ActionEvent event) {
-       // int num=5;
-       int num = Integer.parseInt(txtNjugadores.getText()) ;
+        // int num=5;
+        int num = Integer.parseInt(txtNjugadores.getText());
         numeroDeJugadores.getItems().clear();
-        for (int i = 1; i <= num; i++) {
-            numeroDeJugadores.getItems().add(String.valueOf(1));
+        if (num <=5) {
+            for (int i = 1; i <= num; i++) {
+                numeroDeJugadores.getItems().add(String.valueOf(i));
 
+            }
+            numeroDeJugadores.getSelectionModel().select(0);
+            parametros.setVisible(false);
+        }else{
+            System.out.println("Ha excedido el numero maximo de jugadores");
         }
-        numeroDeJugadores.getSelectionModel().select(0);
 
-        parametros.setVisible(false);
+
+
+
     }
 }
