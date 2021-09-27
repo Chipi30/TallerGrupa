@@ -1,6 +1,7 @@
 package com.example.fxjava;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Juego {
 
@@ -15,36 +16,42 @@ public class Juego {
     }
 
     private ArrayList<Jugador> nuevosJugadores(){
-        ArrayList<Jugador>play = new ArrayList<>();
-        for(int i = 1; i<=numeroJugadores; i++){
-            play.add(new Jugador(i + "" ,nivelJuego));
+        ArrayList<Jugador> play = new ArrayList();
+        for(int i = 1; i <= this.numeroJugadores; ++i){
+            play.add(new Jugador(i + "" ,this.nivelJuego));
         }
         return play;
     }
 
     public void ronda(int avanzo1,int avanzo2){
-        devolver(jugador.get(posicion).getPosAvanzadas()+(avanzo1+avanzo2));
+        devolver(jugador.get(this.posicion).getPosAvanzadas()+(avanzo1+avanzo2));
         jugador.get(posicion).avanzar(avanzo1 + avanzo2);
         if(avanzo1 != avanzo2){
-            if(posicion < numeroJugadores - 1)posicion++;
-            else posicion = 0;
+            if(this.posicion < this.numeroJugadores - 1){
+                ++this.posicion;
+            }
+            else this.posicion = 0;
         }
     }
     public void devolver(int dev){
-        for(int i = 0; i<jugador.size();i++){
-            if( jugador.get(i).getPosAvanzadas() == dev)jugador.get(i).reiniciar();
+        for(int i = 0; i < jugador.size(); ++i){
+            if( jugador.get(i).getPosAvanzadas() == dev){
+                jugador.get(i).reiniciar();
+            }
         }
     }
     public void prueba(){
         System.out.println("****PRUEBA****");
-        System.out.println("id -> "+jugador.get(posicion).getId());
-        System.out.println("avanzadas -> "+jugador.get(posicion).getPosAvanzadas());
+        System.out.println("id = "+jugador.get(posicion).getId());
+        System.out.println("avanzadas = "+jugador.get(posicion).getPosAvanzadas());
     }
 
     public boolean hayGanador(){
         boolean ganador = false;
-        for(Jugador K: jugador){
-            if(K.getPosAvanzadas() >= K.getNivel()){
+        Iterator k = jugador.iterator();
+        while(k.hasNext()){
+            Jugador a = (Jugador) k.next();
+            if(a.getPosAvanzadas() >= a.getNivel()){
                 ganador = true;
             }
         }
@@ -53,12 +60,15 @@ public class Juego {
 
     public int nombreGanador(){
         boolean ganador = false;
-        for(Jugador a: jugador){
-            if(a.getPosAvanzadas() >= a.getNivel()){
-                return  Integer.parseInt(a.getId());
+        Iterator k = this.jugador.iterator();
+        Jugador a;
+        do{
+            if(k.hasNext()){
+                return -1;
             }
-        }
-        return -1;
+            a = (Jugador) k.next();
+        }while(a.getPosAvanzadas() < a.getNivel());
+        return Integer.parseInt(a.getId());
     }
 
     public ArrayList<Jugador> getJugador() {
