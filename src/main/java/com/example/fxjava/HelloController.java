@@ -22,8 +22,6 @@ import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
 
-   // ArrayList<Integer> numJugadores = new ArrayList<Integer>();
-   // ArrayList<String> nivel = new ArrayList<String>();
     private int play;
     private Juego juego;
 
@@ -82,15 +80,15 @@ public class HelloController implements Initializable {
         retornos.setText(juego.getJugador().get(juego.getPosicion()).getRetornos() + "");
     }
 
-    void comoboBoxs (){
-        ArrayList<String> listaNiveles = new ArrayList();
-        Collections.addAll(listaNiveles,new String[]{"Basico", "Medio", "Alto"});
-        nivelJuego.getItems().addAll(listaNiveles);
+    void comoboBoxs () {
+        ArrayList<String> nivel = new ArrayList();
+        Collections.addAll(nivel, new String[]{"Basico", "Medio", "Alto"});
+        nivelJuego.getItems().addAll(nivel);
         nivelJuego.getSelectionModel().select(0);
 
-        ArrayList<String> listaNumero = new ArrayList();
-        Collections.addAll(listaNumero, new String[]{"1", "2", "3", "4", "5"});
-        numeroDeJugadores.getItems().addAll(listaNumero);
+        ArrayList<String> numJugadores = new ArrayList();
+        Collections.addAll(numJugadores, new String[]{"1", "2"});
+        numeroDeJugadores.getItems().addAll(numJugadores);
         numeroDeJugadores.getSelectionModel().select(1);
     }
 
@@ -105,11 +103,11 @@ public class HelloController implements Initializable {
 
     @FXML
     void jugar(ActionEvent event) {
-       // numeroDeJugadores.getValue();
-      //  nivelJuego.getValue();
+        numeroDeJugadores.getValue();
+        nivelJuego.getValue();
 
-        int dadoNum1 = (int)(Math.random()* 6+1);
-        int dadoNum2 = (int)(Math.random()* 6+1);
+        int dadoNum1 = (int) (Math.random() * 6 + 1);
+        int dadoNum2 = (int) (Math.random() * 6 + 1);
 
         dadoNumUno.setText(dadoNum1 + " ");
         dadoNumDos.setText(dadoNum2 + " ");
@@ -140,7 +138,7 @@ public class HelloController implements Initializable {
 
     void hayGanador(){
 
-        nuevoGanador.setText("GANADOR: " + juego.nombreGanador());
+        nuevoGanador.setText("GANADOR" + juego.nombreGanador());
         posicionesAvanzadas.setText("**");
         posicionesRestantes.setText("**");
         retornos.setText("**");
@@ -189,7 +187,7 @@ public class HelloController implements Initializable {
 
     @FXML
     private Button nuevoJuego;
-
+/**
     @FXML
     void configuracion(ActionEvent event) throws IOException {
 
@@ -205,7 +203,7 @@ public class HelloController implements Initializable {
         stage2.showAndWait();
         if(!control.numero.getText().equalsIgnoreCase(""))jugadores();
     }
-
+*/
     public ArrayList<String> numero(){
         ArrayList<String> numeroJugadores = new ArrayList<>();
         int num = Integer.parseInt(control.numero.getText());
@@ -230,18 +228,19 @@ public class HelloController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-  //  @FXML
-   // void siguiente(ActionEvent event) {
- //       parametros.setVisible(true);
- //   }
+
+    @FXML
+    void siguiente(ActionEvent event) {
+       parametros.setVisible(false);
+    }
+
     @FXML
     void recibirDatosParametros(ActionEvent event) {
-       // int num=5;
-       int num = Integer.parseInt(txtNjugadores.getText()) ;
+        // int num=5;
+        int num = Integer.parseInt(txtNjugadores.getText());
         numeroDeJugadores.getItems().clear();
         for (int i = 1; i <= num; i++) {
-            numeroDeJugadores.getItems().add(String.valueOf(1));
-
+            numeroDeJugadores.getItems().add(String.valueOf(i));
         }
         numeroDeJugadores.getSelectionModel().select(0);
 

@@ -49,7 +49,7 @@
       </AnchorPane>
       <AnchorPane layoutX="672.0" layoutY="122.0" prefHeight="240.0" prefWidth="300.0" style="-fx-background-color: #D0D3D4; -fx-background-radius: 15;">
          <children>
-            <Button fx:id="parametrosConfiguracion" layoutX="14.0" layoutY="34.0" mnemonicParsing="false" onAction="#configuracion" text="Parametros de Configuración" />
+            <Button fx:id="parametrosConfiguracion" layoutX="14.0" layoutY="34.0" mnemonicParsing="false" onAction="#siguiente" text="Parametros de Configuración" />
             <Button fx:id="nuevoJuego" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="171.0" text="Nuevo Juego" />
             <Button fx:id="acercaDe" layoutX="14.0" layoutY="120.0" mnemonicParsing="false" onAction="#informacion" prefHeight="25.0" prefWidth="171.0" text="Acerca de ..." />
          </children>
