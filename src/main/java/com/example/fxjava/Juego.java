@@ -59,16 +59,15 @@ public class Juego {
     }
 
     public int nombreGanador(){
-        boolean ganador = false;
-        Iterator k = this.jugador.iterator();
-        Jugador a;
-        do{
-            if(k.hasNext()){
-                return -1;
+        String id ="";
+        int aux = 0;
+        for (int i = 0; i < jugador.size(); i++) {
+            if (jugador.get(i).getPosAvanzadas()>aux) {
+               aux=jugador.get(i).getPosAvanzadas();
+               id=jugador.get(i).getId();
             }
-            a = (Jugador) k.next();
-        }while(a.getPosAvanzadas() < a.getNivel());
-        return Integer.parseInt(a.getId());
+        }
+       return Integer.parseInt(id);
     }
 
     public ArrayList<Jugador> getJugador() {

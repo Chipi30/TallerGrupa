@@ -33,7 +33,7 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         comoboBoxs();
-        acercaDe.setDisable(true);
+        acercaDe.setDisable(false);
         nuevoJuego.setDisable(true);
         lanzarJugador.setDisable(true);
         play = 0;
@@ -53,23 +53,17 @@ public class HelloController implements Initializable {
         nuevoJuego.setDisable(false);
         acercaDe.setDisable(false);
         lanzarJugador.setDisable(false);
-
         iniciarJuego.setDisable(true);
         parametrosConfiguracion.setDisable(true);
-
         numeroDeJugadores.setDisable(true);
         nivelJuego.setDisable(true);
-
-        play = (int) (Math.random() * Integer.parseInt(numeroDeJugadores.getValue() + 1));
+        play = (int) (Math.random() * Integer.parseInt(numeroDeJugadores.getValue()))+1;
         lanzarJugador.setText("Lanza Jugador # " + play);
         int level = 0;
-
         if (nivelJuego.getValue().equalsIgnoreCase("Basico")) level = 20;
         else if (nivelJuego.getValue().equalsIgnoreCase("Medio")) level = 30;
         else level = 50;
-
         juego = new Juego(Integer.parseInt(numeroDeJugadores.getValue()), level, play - 1);
-
         turnoJugador.setText(juego.getPosicion() + 1 + " ");
         posicionesAvanzadas.setText(juego.getJugador().get(juego.getPosicion()).getPosAvanzadas() + "");
         posicionesRestantes.setText(juego.getJugador().get(juego.getPosicion()).getPosRestantes() + "");
@@ -149,6 +143,7 @@ public class HelloController implements Initializable {
     @FXML
     private Label pares;
 
+
     @FXML
     void hayGanador() {
 
@@ -178,13 +173,32 @@ public class HelloController implements Initializable {
     private Button nuevoJuego;
 
     @FXML
+    void reiniciarJuego(ActionEvent event) {
+    juego=null;
+    lanzarJugador.setDisable(true);
+    parametrosConfiguracion.setDisable(false);
+    iniciarJuego.setDisable(false);
+    numeroDeJugadores.setDisable(false);
+    nivelJuego.setDisable(false);
+    pares.setText("-");
+    nuevoGanador.setText("xxxxxxx");
+    turnoJugador.setText("00");
+    posicionesAvanzadas.setText("00");
+    posicionesRestantes.setText("00");
+    retornos.setText("00");
+    dadoNumUno.setText("-");
+    dadoNumDos.setText("-");
+    acercaDe.setDisable(false);
+
+    }
+
+    @FXML
     void configuracion(ActionEvent event) throws IOException {
 
         Stage stage2 = new Stage();
         FXMLLoader loader = new FXMLLoader();
         AnchorPane root = (AnchorPane) loader.load(getClass().getResource("configuracion.fxml").openStream());
         control = (Configuracion) loader.getController();
-
         Scene scene = new Scene(root);
         stage2.setScene(scene);
         stage2.alwaysOnTopProperty();
@@ -193,20 +207,19 @@ public class HelloController implements Initializable {
         if (!control.numero.getText().equalsIgnoreCase("")) jugadores();
     }
 
-
-  //  public ArrayList<String> numero() {
-       // ArrayList<String> numeroJugadores = new ArrayList<>();
-       // int num = Integer.parseInt(control.numero.getText());
-      //  for (int i = 1; i <= num; i++) {
-         //   numeroJugadores.add(i + " ");
-       // }
-        //return numeroJugadores;
-  //  }
+    public ArrayList<String> numero() {
+        ArrayList<String> numeroJugadores = new ArrayList<>();
+        int num = Integer.parseInt(control.numero.getText());
+       for (int i = 1; i <= num; i++) {
+           numeroJugadores.add(i + " ");
+        }
+        return numeroJugadores;
+   }
 
     public void jugadores() {
         ArrayList<Integer> numJugadores = new ArrayList<Integer>();
         ArrayList<String> nivel = new ArrayList<String>();
-      //  ArrayList<String> listaUno = numero();
+        ArrayList<String> listaUno = numero();
         numeroDeJugadores.getItems().setAll(String.valueOf(numJugadores));
         numeroDeJugadores.getSelectionModel().select(0);
     }
